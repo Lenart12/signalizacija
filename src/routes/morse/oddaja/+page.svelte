@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-    import { type MorseKey, read_morse_keyboard, read_morse_button, type OnMorseKeyCb, morse_decode } from "$lib/morse";
+    import { type MorseKey, read_morse_keyboard, read_morse_button, type OnMorseKeyCb, morse_decode, morse_encode } from "$lib/morse";
 
     let dash_threshold = 300;
     let letter_break_threshold = 1000;
@@ -135,11 +135,13 @@
                                         {:else}
                                             {#if tx_actual_decoded[i] !== tx_target[i]}
                                                 <span class="variant-filled-error">{tx_actual_decoded[i]}</span>/{tx_target[i]}
+                                                <br>
+                                                <span class="variant-filled-error">{tx_actual[i]}</span>/
                                             {:else}
                                                 {tx_actual_decoded[i]}
                                             {/if}
                                             <br>
-                                            {tx_actual[i]}
+                                            {morse_encode(tx_target[i])}
                                         {/if}
                                     {/if}
                                 </td>

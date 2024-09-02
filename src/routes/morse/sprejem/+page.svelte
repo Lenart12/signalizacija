@@ -73,7 +73,7 @@
         flash_timeout = null;
         if (rx_target.length === 0) return;
 
-        const rx_dur = (Date.now() - rx_start) / 1000;
+        const rx_dur = Math.max(0, (Date.now() - rx_start) / 1000);
         rx_time = `${Math.floor(rx_dur / 60)}m ${Math.floor(rx_dur % 60).toString().padStart(2, '0')}s`;
 
         rx_correct = 0;
@@ -165,6 +165,8 @@
                                                 {:else}
                                                     {#if rx_actual[i] !== rx_target[i]}
                                                         <span class="variant-filled-error">{rx_actual[i]}</span>/{rx_target[i]}
+                                                        <br>
+                                                        <span class="variant-filled-error">{morse_encode(rx_actual[i])}</span>/
                                                     {:else}
                                                         {rx_actual[i]}
                                                     {/if}
